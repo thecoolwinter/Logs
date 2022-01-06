@@ -24,7 +24,7 @@ public enum LogLevel {
     case crash
 }
 
-struct Log {
+public struct Log {
     static var `default`: LogCategory = LogCategory("Default")
     static var viewCycle: LogCategory = LogCategory("View Cycle")
     static var dataManager: LogCategory = LogCategory("Data Manager")
@@ -73,18 +73,24 @@ struct Log {
     }
     
     // Log the thing
-    static func log(_ str: String, level: LogLevel = .info, logger: OSLog = OSLog(subsystem: OSLog.subsystem, category: "Default")) {
+    public static func log(_ str: String, level: LogLevel = .info, logger: OSLog? = nil) {
+        let osLog: OSLog
+        if logger == nil {
+            osLog = OSLog(subsystem: OSLog.subsystem, category: "Default")
+        } else {
+            osLog = logger!
+        }
         switch level {
         case .info:
-            os_log("%{public}@", log: logger, type: .info, str)
+            os_log("%{public}@", log: osLog, type: .info, str)
         case .debug:
-            os_log("%{public}@", log: logger, type: .debug, str)
+            os_log("%{public}@", log: osLog, type: .debug, str)
         case .warning:
-            os_log("%{public}@", log: logger, type: .error, str)
+            os_log("%{public}@", log: osLog, type: .error, str)
         case .error:
-            os_log("%{public}@", log: logger, type: .error, str)
+            os_log("%{public}@", log: osLog, type: .error, str)
         case .crash:
-            os_log("%{public}@", log: logger, type: .fault, str)
+            os_log("%{public}@", log: osLog, type: .fault, str)
         }
         
         #if !targetEnvironment(macCatalyst) && canImport(FirebaseCrashlytics)
