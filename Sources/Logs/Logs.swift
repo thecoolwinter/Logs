@@ -25,17 +25,17 @@ public enum LogLevel {
 }
 
 public struct Log {
-    static var `default`: LogCategory = LogCategory("Default")
-    static var viewCycle: LogCategory = LogCategory("View Cycle")
-    static var dataManager: LogCategory = LogCategory("Data Manager")
-    static var api: LogCategory = LogCategory("API Client")
+    public static var `default`: LogCategory = LogCategory("Default")
+    public static var viewCycle: LogCategory = LogCategory("View Cycle")
+    public static var dataManager: LogCategory = LogCategory("Data Manager")
+    public static var api: LogCategory = LogCategory("API Client")
     
     public class LogCategory {
         // Category Name
         private var category: String
         
         // Init
-        init(_ category: String) {
+        public init(_ category: String) {
             self.category = category
         }
         
