@@ -7,7 +7,7 @@ let package = Package(
     name: "Logs",
     platforms: [
         .iOS(.v10),
-        .macOS(.v10_10),
+        .macOS(.v10_12),
         .macCatalyst(.v13)
     ],
     products: [.library(name: "Logs", targets: ["Logs"])],
